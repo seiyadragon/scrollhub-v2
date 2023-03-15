@@ -13,7 +13,7 @@
     let searchTerm = ref("")
 
     let onSearch = () => {
-        emit('onSearch', searchTerm)
+        emit('onSearch', searchTerm.value)
         searchTerm.value = ""
     }
 </script>

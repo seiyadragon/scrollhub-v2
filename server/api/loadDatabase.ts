@@ -7,15 +7,18 @@ export default defineEventHandler(async (event) => {
     const supabaseClient = createClient(url as string, key as string)
 
     let response = {
-        message: ""
+        message: "",
+        passed: false,
     }
 
     let {data: books, error: error1} = await supabaseClient
     .from("ScrollHubBooks")
     .select("*")
 
-    if (error1 !== null)
+    if (error1 !== null) {
         response.message = error1.message
+        response.passed = false
+    }
 
     if ((books as any[]).length <= 0 || books === undefined) {
         books = []
@@ -25,7 +28,7 @@ export default defineEventHandler(async (event) => {
         gutendex.results.map(async (book: any) => {
             await supabaseClient
             .from("ScrollHubBooks")
-            .insert({bookData: book})
+            .insert({bookData: book, title: book.title, author: book.authors[0] !== undefined ? book.authors[0].name : "Unknown"})
         })
 
         while (gutendex.next !== null) {
@@ -34,11 +37,12 @@ export default defineEventHandler(async (event) => {
             gutendex.results.map(async (book: any) => {
                 await supabaseClient
                 .from("ScrollHubBooks")
-                .insert({bookData: book})
+                .insert({bookData: book, title: book.title, author: book.authors[0] !== undefined ? book.authors[0].name : "Unknown"})
             })
         }
 
         response.message = "Books loaded!"
+        response.passed = true
     }
 
     return response

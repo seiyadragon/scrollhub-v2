@@ -7,6 +7,7 @@
                 <div v-for="author in book.bookData.authors">
                     <h4>{{ author.name }}</h4>
                 </div>
+                <h4>{{ book.bookData.download_count }}</h4>
             </div>
         </div>
         <div v-if="book.bookData.media_type !== 'Text'" class="audio">
