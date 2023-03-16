@@ -7,7 +7,7 @@
                 <div v-for="author in book.bookData.authors">
                     <h4>{{ author.name }}</h4>
                 </div>
-                <h4>{{ book.bookData.download_count }}</h4>
+                <h4>Popularity: {{ ((book.bookData.download_count / (max_books !== undefined ? max_books : 100000)) * 10).toFixed(2) }}%</h4>
             </div>
         </div>
         <div v-if="book.bookData.media_type !== 'Text'" class="audio">
@@ -18,7 +18,8 @@
 
 <script lang="ts" setup>
     let props = defineProps({
-        book: null as any
+        book: null as any,
+        max_books: Number,
     })
 </script>
 

@@ -15,23 +15,22 @@
             </PaddingY>
         </div>
     </div>
+    <Footer class="footer"/>
 </template>
 
 <style lang="scss" scoped>
     .homeBackground {
         background-image: url("/books_background.jpg");
-        position: fixed;
+        position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        width: 100%;
+        height: 100%;
 
         .homeBackgroundBlur {
-            position: fixed;
+            position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             backdrop-filter: blur(3px);
 
             h1 {
@@ -67,5 +66,9 @@
                 }
             }
         }
+    }
+
+    .footer {
+        margin-top: 896px;
     }
 </style>

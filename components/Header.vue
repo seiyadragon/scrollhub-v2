@@ -23,7 +23,7 @@
 
             .scrollhubLogo {
                 height: 64px;
-                margin-left: -16px;
+                margin-left: -4px;
             }
         }
     }

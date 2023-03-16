@@ -35,16 +35,18 @@
     ])
 
     let searchOpen = ref(false)
+    let pageText = ref("")
 
     let onPageInput = (event: any) => {
-        setTimeout(() => {
-            if (event.target.innerText === "" || event.target.innerText === "NaN")
-                event.target.innerText = "1"
+        if (event.target.innerText === "" || event.target.innerText === "NaN")
+            event.target.innerText = ""
 
-            console.log("Test")
+        pageText.value = event.target.innerText
 
-            emit('pageJump', parseInt(event.target.innerText))
-        }, 1000)
+        if (pageText.value !== "")
+            setTimeout(() => {
+                emit('pageJump', parseInt(pageText.value) - 1)
+            }, 1000)
     }
 </script>
 
