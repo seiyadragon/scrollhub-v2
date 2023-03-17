@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: ['nuxt-icon', '@nuxtjs/supabase'],
-    plugins: [],
+    plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
     app: {
         head: {
             charset: 'utf-16',

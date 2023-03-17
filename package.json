@@ -12,6 +12,7 @@
     "nuxt": "^3.2.3"
   },
   "dependencies": {
+    "@vercel/analytics": "^0.1.11",
     "nuxt-icon": "^0.3.2",
     "sass": "^1.59.2",
     "supabase": "^1.42.5"
