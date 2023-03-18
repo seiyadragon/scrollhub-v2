@@ -18,6 +18,8 @@
     let supabaseClient = useSupabaseClient()
     let route = useRoute()
 
+    const PAGE_SCROLL_SPEED = 8
+
     const getBooksTableLength = async (query: string) => {
         if (query === "") {
             let {count}: any = await supabaseClient
@@ -64,7 +66,7 @@
         let savedPage = localStorage.getItem(bookID as string)
         if (savedPage !== null) {
             page.value = parseInt(savedPage as string)
-            scrollUpByUntil(32, page.value * (120 * 16))
+            scrollUpByUntil(PAGE_SCROLL_SPEED * page.value, page.value * (120 * 16))
         }
     })
 
@@ -98,7 +100,7 @@
             return
 
         page.value--
-        scrollDownByUntil(32, page.value * (120 * 16))
+        scrollDownByUntil(PAGE_SCROLL_SPEED, page.value * (120 * 16))
     }
 
     const nextPage = () => {
@@ -106,12 +108,13 @@
             return
             
         page.value++
-        scrollUpByUntil(32, page.value * (120 * 16))
+        scrollUpByUntil(PAGE_SCROLL_SPEED, page.value * (120 * 16))
     }
 
     const firstPage = async () => {
+        let prevPageValue = page.value
         page.value = 0
-        scrollDownByUntil(32, 0)
+        scrollDownByUntil(PAGE_SCROLL_SPEED * prevPageValue, page.value)
     }
 
     const pageJump = (toPage: number) => {
@@ -123,11 +126,11 @@
 
         if (toPage > page.value) {
             page.value = toPage
-            scrollUpByUntil(32, page.value * (120 * 16))
+            scrollUpByUntil(PAGE_SCROLL_SPEED * page.value, page.value * (120 * 16))
         }
         else {
             page.value = toPage
-            scrollDownByUntil(32, page.value * (120 * 16))
+            scrollDownByUntil(PAGE_SCROLL_SPEED * page.value, page.value * (120 * 16))
         }
     }
 </script>
