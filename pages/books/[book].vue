@@ -5,7 +5,7 @@
                 <!-- BooksSearch /-->
             </BooksNavigation>
             <section>
-                <Book :book="book" :max_books="maxBooks" />
+                <Book v-if="mounted" :book="book" :max_books="maxBooks" />
                 <p v-if="mounted">{{ bookText }}</p>
                 <img src="/loading.gif" alt="Loading animation" v-if="!mounted" class="loadingImage">
             </section>
@@ -39,15 +39,7 @@
 
     let bookID = route.params.book
 
-    let {data, error} = await supabaseClient
-    .from("ScrollHubBooks")
-    .select("*")
-    .eq("id", bookID)
-
-    if (error !== null)
-        console.log(error)
-
-    let book = ref((data as any[])[0])
+    let book = ref([] as any[])
     let bookText = ref("")
     let mounted = ref(false)
     let page = ref(0)
@@ -58,8 +50,18 @@
     })
 
     onMounted(async () => {
+        let {data, error: err1} = await supabaseClient
+        .from("ScrollHubBooks")
+        .select("*")
+        .eq("id", bookID)
+
+        if (err1 !== null)
+            console.log(err1)
+
+        book.value = (data as any[])[0]
+
         let {data: bookData, error} = await useFetch(`/api/loadBookData?bookString=${JSON.stringify(book.value)}`)
-        
+
         bookText.value = bookData.value?.text as string
         mounted.value = true
 
@@ -145,6 +147,12 @@
             white-space: pre-wrap;
             padding-left: 8px;
             padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .invPage {
+            background-color: darken(white, 70%);
         }
     
         .loadingImage {
