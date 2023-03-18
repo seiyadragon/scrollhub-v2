@@ -51,11 +51,21 @@
     let page = ref(0)
     let maxBooks = ref(await getBooksTableLength(""))
 
+    watch(page, (before, after) => {
+        localStorage.setItem(bookID as string, page.value.toString())
+    })
+
     onMounted(async () => {
         let {data: bookData, error} = await useFetch(`/api/loadBookData?bookString=${JSON.stringify(book.value)}`)
         
         bookText.value = bookData.value?.text as string
         mounted.value = true
+
+        let savedPage = localStorage.getItem(bookID as string)
+        if (savedPage !== null) {
+            page.value = parseInt(savedPage as string)
+            scrollUpByUntil(32, page.value * (120 * 16))
+        }
     })
 
     const scrollUpByUntil = (by: number, until: number) => {
