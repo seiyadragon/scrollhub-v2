@@ -28,7 +28,7 @@
             <div class="separator" />
             <h1>About me</h1>
             <div class="aboutMe" >
-                <a class="profile" href="https://arlenmolina.codes">
+                <a class="profile" href="https://wevolution.biz">
                     <img 
                         src="https://pbs.twimg.com/profile_images/1663671550254501890/pHEEL7vv_400x400.jpg" 
                         alt="Profile Picture" class="profile-picture" 
